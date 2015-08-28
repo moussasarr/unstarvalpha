@@ -1,0 +1,216 @@
+<% provide(:title, @user.username) %>
+<div class="row">
+  <aside class="col-md-4">
+    <div class= "container1">
+    <section class="user_info">
+      <%= render 'follow_form' if user_signed_in? %>
+      <% if @user.picture? %><%= image_tag @user.picture.url, :size => "250x250"  %>
+        <% else %>
+        <%= gravatar_for @user %>
+        <%end%><br>
+        <!--<%= render 'follow_form' if user_signed_in? %>-->
+        
+        <%= @user.username %>
+        
+        
+        <br/>
+
+
+      
+    </section>
+
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+    
+    
+      
+    
+
+        <section>
+    
+ 
+
+
+     <div class="row feed">
+ <br><br>
+   <ul class="nav nav-tabs">
+  <li class="active"><a href="#home" data-toggle="tab"><strong>Friends</a></strong></li>
+  <li><a href="#profile" data-toggle="tab">Friended by</a></li>
+   
+  
+    </ul>
+  </li>
+</ul>
+<br>
+<br>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="home">
+    
+     
+  <% for friendship in @user.friendships %>
+    <% $img = image_tag friendship.friend.picture.url, :size => "60x60" %>
+    
+      <%= link_to $img, friendship.friend  %>
+     <!-- (<%= link_to "remove", friendship, :method => :delete %>)-->
+    
+  <% end %><br><br>
+
+   
+  </div>
+  <div class="tab-pane fade" id="profile">
+     <% for user in @user.inverse_friends %>
+    <% $img = image_tag user.picture.url, :size => "60x60" %>
+  
+    <%=link_to $img, user %>
+
+
+  <% end %>
+ 
+  </div>
+
+
+
+
+
+  <div class="tab-pane fade" id="dropdown1">
+    
+
+
+
+        </section>
+  </aside>
+
+
+  <div class="col-md-8">
+
+    
+  
+    <% @user.posts.each do |post| %>
+
+    <div class="row container1">
+
+    <div class= "col-md-1">
+
+   <div><small><em><% if post.user.picture? %><%= link_to (image_tag post.user.picture.url, :size => "70x70"), post.user  %></div>
+        <% else %>
+        <%= gravatar_for post.user %>
+        <%end%>
+        </div>
+
+        <div class= "col-md-1"></div>
+
+         <div class="col-md-10">
+        <h4><strong><%=link_to post.user.username||post.user.firtname, post.user %></strong> <span class="timestamp">
+    <strong><%=time_ago_in_words(post.created_at) if !post.created_at.nil?%> ago</strong></em></small><br>
+    <strong><%= link_to post.title, post %></strong></h4></span>
+     
+    </strong>
+   <section>
+    <%= image_tag post.picture.url if post.picture? %>
+  </section>
+   <br>
+   <section>
+    <%= post.body %>
+   </section>
+   
+  </span>
+
+
+
+
+
+
+
+
+<br><br>
+
+    
+
+  
+
+
+  
+
+
+  <div id="commentingForm"> 
+  
+    <%= render 'shared/comment_form', post: post %>
+    <% if post.comments.count > 0 %> 
+    <br>
+    </div>
+
+      <br>
+
+    <h5>Comments (<%= post.comments.count %>) 
+  <%= link_to  id: "commenting" do %>  
+<i class="glyphicon glyphicon-align-left glyphicon-comment" aria-hidden="true"></i> 
+  <% end %>
+
+
+  </h5>
+
+   <% post.comments.each do |comment| %>
+      <% if comment != post.comments.at(post.comments.count) %>
+
+    <span class="comment"><small><%= comment.body %></small></span>
+     <br/>
+
+     <h4><small><% if comment.user.picture? %><%= link_to (image_tag comment.user.picture.url, :size => "30x30"), comment.user  %>
+        <% else %>
+        <%= gravatar_for comment.user %>
+        <%end%>
+     
+    <strong><%=time_ago_in_words(comment.created_at) if !comment.created_at.nil?%> ago</strong></small>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                       <a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
+                                        <a href="#"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+                                        
+    </span></em></strong></small></h4>
+    
+    <br>
+    <br>
+    <%end%>
+    <%end%>
+    <%end%>
+    
+  
+     <br>
+     <br>
+     <br>
+     
+
+
+
+
+
+
+
+
+
+
+
+         </div>
+       </div>
+        <%end %>
+      
+
+   
+
+
+
+
+
+  
+    
+    <br>
+    <br>
+    <br>
+  </div>
+
+  <br>
+  <br>
+</div>
+<br>
+<br>
+<br>

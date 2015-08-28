@@ -1,0 +1,314 @@
+
+
+
+
+
+
+<% if user_signed_in? %>
+ <div class="row submenu">  <div class="panel panel-primary col-lg-18">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hi <%= current_user.username %><%= current_user.email%> | <%= render 'shared/stats' %> | Your score is : <%= current_user.score %> | You belong to x groups | X invites pending</h3>
+  </div>
+  <div class="panel-body">
+        
+   
+     
+    
+   
+
+      <br/>
+
+
+     <div class="row feed">
+ <br><br>
+   <ul class="nav nav-tabs">
+  <li class="active"><a href="#home" data-toggle="tab"><strong>My Posts</a></strong></li>
+  <li><a href="#profile" data-toggle="tab">My Rooms</a></li>
+   <li><a href="#profile" data-toggle="tab">My Groups</a></li>
+  
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      Account <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="#dropdown1" data-toggle="tab">Edit Profile</a></li>
+      
+      <li class="divider"></li>
+      <li><a href="#dropdown2" data-toggle="tab">Boost Account</a></li>
+      <li><a href="#dropdown2" data-toggle="tab"><li> <%= link_to "Deactivate my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p></li></a></li>
+    </ul>
+  </li>
+</ul>
+<br>
+<br>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="home">
+      <%= render 'shared/post_form' %><br/> 
+      <br>
+      
+      <%= render 'shared/feed' %>
+  </div>
+  <div class="tab-pane fade" id="profile">
+    <p></p>
+  </div>
+
+
+
+
+
+  <div class="tab-pane fade" id="dropdown1">
+    
+    
+<h1 class= "center">Update your profile</h1>
+    <div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :username %>
+      <%= f.text_field :username, class: 'form-control' %>
+       <br/>
+
+      <%= f.label :firtname, "First Name"%>
+      <%= f.text_field :firtname, class: 'form-control' %>
+      <br/>
+
+      <%= f.label :lastName, "Last Name" %>
+      <%= f.text_field :lastName, class: 'form-control' %>
+      <br/>
+
+        <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+      <br/>
+
+
+       <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+      <br/>
+
+      <%= f.label :password_confirmation, "Password Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <br/>
+
+         
+      <%= f.label :country, "Country" %>
+       <%= f.select :country, CountryStateSelect::Constant::COUNTRIES, {}, id: 'country_id', class: 'form-control' %>
+      </br>
+
+
+      <%= f.label :state, "Your State" %>
+       <%= f.text_field :state ,:id=> 'state_name', class: 'form-control' %>
+      </br>
+      <br>
+      
+
+       
+
+       <%= f.label :industry %>
+      <%= f.text_field :industry, class: 'form-control' %>
+      <br/>
+
+     
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
+<br>
+<br>
+<br>
+<br>
+    
+    </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+  <div class="tab-pane fade" id="dropdown2">
+    <p>Here are tips to boost your account</p>
+  </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+      <br>
+
+  </div>
+</div>
+
+
+
+
+</div></div>
+
+
+ </div>
+
+
+
+
+
+
+
+
+<!--
+  <div class="row">
+    
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
+   
+ 
+
+    
+    <section class="post_feed">
+    <br>
+      <h3>Post Feed</h3>
+      
+      </section>
+    </div>
+  </div>
+  -->
+<% else %>
+
+            
+
+    
+
+
+      
+</aside>
+
+
+ <h3 class = "center">Join <%= [2000, User.all.count].max %>+ artists.</h2>
+
+
+<br/>
+<br/>
+  
+   
+ <!-- <iframe src="terms" width= "100%" height= "600"></iframe>-->
+ 
+<div class ="wrap">
+<h2>Sign up</h2>
+<fieldset>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "form-horizontal" ) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+   <div class="col-lg-10">
+    
+    <%= f.email_field :email, autofocus: true, class: "form-control", id: "inputEmail", placeholder: "Email"  %>
+    
+  </div>
+  </div>
+
+  <div class="field">
+   <div class="col-lg-10">
+    
+    <% if @validatable %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off", class: "form-control", id: "inputPassword", placeholder: "Password" %>
+     <br/>
+     
+  </div></div>
+  
+
+
+  <div class="field">
+    <div class="col-lg-10">
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", id: "inputPassword", placeholder: "Password" %>
+     <br/>
+    
+  </div>
+  </div>
+
+   <div class="col-lg-10">
+    <input type="checkbox" checked = "true">* I agree to the <a href="#">terms and conditions</a>
+     <br/>
+    <br/>
+     </div>
+
+     <div class="col-lg-10">
+  <div class="actions">
+    <%= f.submit "Sign up", class: "btn btn-primary center" %>
+    </div>
+  </div>
+<% end %>
+ </fieldset>
+
+ <div class="col-lg-10">
+<%= render "devise/shared/links" %>
+<br/>
+<br/>
+</div>
+
+
+<div class="col-lg-10">
+
+
+
+  </div>
+
+</form>
+      
+      <!--
+     <div class = "inline">
+
+   <button type="submit" class="btn btn-info btn-active"><i class="fa fa-facebook"></i> <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), class: "face-btn" %></button>
+  
+     <button type="submit" class="btn btn-primary"><i class="fa fa-twitter"></i>  <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %> </button>
+    
+     <button type="submit" class="btn btn-default"><i class="fa fa-linkedin"></i>  <%= link_to "Sign in with Linkedin", user_omniauth_authorize_path(:linkedin ) %></button>
+   
+        <button type="submit" class="btn btn-primary btn-warning"><i class="fa fa-google"></i>  <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %> </button>
+       
+       </div>
+     -->
+</div>
+
+
+
+
+  
+
+
+
+</section>
+</div>
+<%end%>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+

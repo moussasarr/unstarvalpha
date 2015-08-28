@@ -1,0 +1,20 @@
+<%= image_tag("icons/post.create.svg", size: "20") %>
+<% if activity.owner %>
+
+<small><strong><%= time_ago_in_words(activity.created_at) %> ago</strong></small>
+
+   <% if activity.owner.picture? %><%= image_tag activity.owner.picture.url, :size => "30x30"  %>
+       
+        <%end%><br>
+
+
+ <%= link_to activity.owner.firtname || activity.owner.username, activity.owner if activity.owner %>
+created the group
+
+<% if activity.trackable %>
+  <%= link_to activity.trackable.group_name, activity.trackable %> 
+<% else %>
+  which was deleted later.
+<% end %>
+
+<%end %>

@@ -1,0 +1,12 @@
+
+
+<%= image_tag("icons/post.destroy.svg", size: "20") %>
+<small><strong><%= time_ago_in_words(activity.created_at) %> ago</strong></small>
+
+   <% if activity.owner.picture? %><%= image_tag activity.owner.picture.url, :size => "30x30"  %>
+      
+        <%end%><br>
+
+
+ <%= link_to activity.owner.firtname || activity.owner.username, activity.owner if activity.owner %>
+'s comment was deleted .

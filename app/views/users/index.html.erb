@@ -1,0 +1,109 @@
+<% provide(:title, 'All users') %>
+   <h3><i class="glyphicon glyphicon-envelope"> Chats</i></h3>
+
+   <div style="height: 200px; width: 325px ; overflow-y: auto; border-style: solid; border-top: thick double #3b5998;">
+      <% if @conversations.any? %>
+          <ul class="media-list">
+            <% @conversations.each do |conversation| %>
+                <li class="media">
+                  <%= image_tag(conversation_interlocutor(conversation).picture.url, :size => "50x50", class: "media-object pull-left") %>
+                  <div class="media-body">
+                    <%= link_to "", conversation_path(conversation), class: "conversation", "data-cid" => conversation.id %>
+
+
+
+
+                        <h4 class="media-heading"><%= conversation_interlocutor(conversation).name %></h4>
+                        <p><%= conversation.messages.last.nil? ? "No messages" : truncate(conversation.messages.last.body, length: 45) %>...  <%= link_to "view", "#", class: "btn btn-default btn-xs start-conversation",
+                    "data-sid" => current_user.id, "data-rip" => conversation_interlocutor(conversation).id %></p>
+                  </div>
+                </li>
+
+            <% end %>
+          </ul>
+      <% else %>
+          <p>You have no conversations. Click send message with any user to create one.</p>
+      <% end %>
+    </div>
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Logged in as <%= current_user.email %> | <%= render 'shared/stats' %> | Your score is : <%= 0 || current_user.score %> | You belong to x groups | X invites pending</h3>
+  </div>
+  <div class="panel-body">
+     
+       
+      
+  </div>
+  
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Username</th>
+      <th>Score</th>
+      <th>Expertise</th>
+      <th>Frienship</th>
+       
+      <th>Vote</th>
+      <th>Primary Group</th>
+      <th>Country</th>
+      <th>State</th>
+      <th>Joined</th>
+      <th>Artist ?</th>
+      <th>Message</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+        
+        <% $i = 1 %>
+      
+       <% while $i <= @users.count  do %>
+       <% @users.each do |user| %>
+         <% if user.deleted_at == nil %>
+      <tr>
+       <td><%= $i %></td>
+      <td><% if user.picture? %><%= image_tag user.picture.url, :size => "90x90"  %>
+        <% else %>
+        <%= gravatar_for user %>
+        <%end%><br>
+        <%=link_to user.username.to_s, user %>
+      </td>
+      <td><%= user.score %></td>
+      <td><%= user.profession %></td>
+      <td><%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %></td>
+     
+      <td>Vote me</td>
+      <td>Artist or not</td>
+      <td><%= user.country %></td>
+      <td><%= user.state %></td>
+      <td><%= time_ago_in_words(user.created_at) %> ago</td>
+      <td><%= user.artist %></td>
+       <td>  
+        <%= link_to "Chat", "#", class: "btn btn-default btn-xs start-conversation",
+                    "data-sid" => current_user.id, "data-rip" => user.id %>
+       </td>
+      
+        <% $i +=1 %>
+        <%end%>
+    
+      </tr>
+      <%end%>
+      <%end%>
+      </tbody>
+
+
+       
+
+     
+      <br>
+       
+    
+
+ 
+
+
+
+

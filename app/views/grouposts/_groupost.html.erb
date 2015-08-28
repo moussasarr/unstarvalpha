@@ -1,0 +1,180 @@
+
+<div class="container1">
+
+
+<li id="groupost-<%= groupost.id %>">
+ 
+  <span class="user"><%= link_to groupost.user.username, groupost.username %></span>
+  <span class="content"><%= groupost.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(groupost.created_at) %> ago.
+  </span>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row content">
+    
+      <div class= "col-md-1">
+   <span class= "comment"> <div><small><em><% if groupost.user.picture? %><%= link_to (image_tag groupost.user.picture.url, :size => "70x70"), groupost.user  %></div>
+        <% else %>
+        <%= gravatar_for groupost.user %>
+        <%end%>
+      </div>
+      <div class= "col-md-9">
+    <h4><strong><%=link_to groupost.user.username||groupost.user.firtname, groupost.user %></strong> <span class="timestamp">
+    <strong><%=time_ago_in_words(groupost.created_at) if !groupost.created_at.nil?%> ago</strong></em></small>
+   
+  </span>
+ <br>
+   <strong><%= link_to groupost.title, post %></strong></h4></span>
+
+  
+    
+  <!--
+  <a href="#" id="comenting"><span class="glyphicon glyphicon-align-left glyphicon-comment" aria-hidden="true"></span>
+  </a>
+
+  <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+   <a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></h4> -->
+   </h4>
+   </strong>
+   <section>
+    <%= image_tag groupost.picture.url if groupost.picture? %>
+  </section>
+   <br>
+   <section>
+    <%= groupost.body %>
+   </section>
+   
+  </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- <span class="timestamp">
+    <small>Posted <%= time_ago_in_words(post.created_at) if !post.created_at == nil? %> ago.</small>
+    <% if current_user == post.user %>
+      <%= link_to  post, method: :delete,
+                                       data: { confirm: "You sure?" }  do %>
+        <i class="glyphicon glyphicon-trash"></i>
+        <%end%>
+      
+      |<a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+    <% end %>
+   |<%= pluralize post.reputation_for(:votes).to_i, "vote" %>
+   
+    |<%= link_to  vote_post_path(post, type: "up"), method: "post" do%>
+       <i class="glyphicon glyphicon-thumbs-up"></i>
+       <%end%>
+       |<%= link_to  vote_post_path(post, type: "down"), method: "post" do%>
+       <i class="glyphicon glyphicon-thumbs-down"></i>
+       <%end%>
+  </span>
+ -->
+    
+    <br><br>
+
+    
+
+  
+
+
+  
+
+
+  <div id="commentingForm"> 
+  
+    <%= render 'shared/comment_form', post: post %>
+    <% if groupost.comments.count > 0 %> 
+    <br>
+    </div>
+
+      <br>
+
+    <h5>Comments (<%= groupost.groupcomments.count %>) 
+  <%= link_to  id: "commenting" do %>  
+<i class="glyphicon glyphicon-align-left glyphicon-comment" aria-hidden="true"></i> 
+  <% end %>
+
+
+  </h5>
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <% groupost.comments.each do |comment| %>
+      <% if comment != groupost.groupcomments.at(groupost.groupcomments.count) %>
+
+    <span class="comment"><small><%= comment.body %></small></span>
+     <br/>
+
+     <h4><small><% if comment.user.picture? %><%= link_to (image_tag comment.user.picture.url, :size => "30x30"), comment.user  %>
+        <% else %>
+        <%= gravatar_for comment.user %>
+        <%end%>
+     
+    <strong><%=time_ago_in_words(comment.created_at) if !comment.created_at.nil?%> ago</strong></small>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                       <a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
+                                        <a href="#"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+                                        
+    </span></em></strong></small></h4>
+    </li>
+    <br>
+    <br>
+    <%end%>
+    <%end%>
+    <%end%>
+    
+  
+     <br>
+     <br>
+     <br>
+     
+
+</div>
+     <div class="col-md-2">
+     </div>
+</div>
+
+</div>
+  

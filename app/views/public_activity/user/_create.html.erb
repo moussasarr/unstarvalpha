@@ -1,0 +1,11 @@
+ <span class="glyphicon glyphicon-user" aria-hidden="true" size: "20"></span>
+
+
+
+ <%= link_to activity.owner.firtname || activity.owner.username, activity.owner if activity.owner %>
+
+<% if activity.trackable %>
+  <%= link_to activity.trackable.name || activity.trackable.firtname, activity.trackable %> joined Unstarv  <small><strong><%= time_ago_in_words(activity.trackable.created_at) %> ago</strong></small>.
+ 
+  
+<% end %>

@@ -1,0 +1,7 @@
+Poller.clear();
+Poller.poll(0);
+<% if @chatcomment.new_record? %>
+alert('Your chat message cannot be saved.');
+<% else %>
+$('#chatcomment_body').val('');
+<% end %>

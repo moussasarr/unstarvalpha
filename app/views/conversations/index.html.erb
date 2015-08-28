@@ -1,0 +1,21 @@
+<h2>Your Conversations</h2>
+
+   
+      <% if @conversations %>
+          <ul>
+            <% @conversations.each do |conversation| %>
+                
+                  <%= image_tag conversation_interlocutor(conversation).picture, :size => "30x30" %>
+                  
+                    <%= link_to truncate(conversation.messages.last.body, length: 45), conversation_path(conversation),
+                    "data-sid" => current_user.id, "data-rip" => conversation_interlocutor(conversation).id  %>
+                        <%= conversation_interlocutor(conversation).name %>
+                        <%= conversation.messages.last.nil? ? "No messages" : truncate(conversation.messages.last.body, length: 45) %>
+                       <br>
+                
+
+            <% end %>
+          </ul>
+      <% else %>
+          <p>You have no conversations. Click send message with any user to create one.</p>
+      <% end %>

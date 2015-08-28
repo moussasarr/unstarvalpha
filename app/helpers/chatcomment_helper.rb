@@ -1,0 +1,2 @@
+module ChatcommentHelper
+end

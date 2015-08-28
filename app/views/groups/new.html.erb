@@ -1,0 +1,95 @@
+<h1>Create a group</h1>
+
+
+
+<%= form_for(@group, html: { multipart: true }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+    <div class="field">
+  <div class="col-lg-10">
+   
+    <%= f.text_field :group_name, autofocus: true, class: 'form-control', placeholder: 'Name your group' %>
+    <br>
+    <br>
+   </div>
+   </div>
+  
+  
+  
+
+   <div class="field">
+  <div class="col-lg-10">
+    
+    <%= f.select :country, CountryStateSelect::Constant::COUNTRIES, {}, prompt: "Select artistic category", id: 'country_id', autofocus: true, class: 'form-control' %>
+    <br>
+    <br>
+    </div>
+    </div>
+
+     <div class="field">
+  <div class="col-lg-10">
+    
+    <%= f.text_field :state ,:id=> 'state', autofocus: true, class: 'form-control', placeholder: " State within country if it applies" %> 
+    <br>
+    <br>
+  </div>
+  </div>
+
+ 
+
+    <div class="field">
+  <div class="col-lg-10">
+    
+    <%= f.text_area :description, autofocus: true, class: 'form-control', placeholder: "Describe your group" %> 
+   <br/>
+   <br/>
+   </div>
+   </div>
+
+
+     <div class="field">
+  <div class="col-lg-10">
+    
+    <%= f.select :type, Group::TYPE, prompt: "Select Group type", autofocus: true, class: 'form-control' %>
+    <br>
+    <br>
+    </div>
+    </div>
+  
+     <div class="field">
+  <div class="col-lg-10">
+ 
+    
+    <%= f.select :category, Group::CATEGORY, prompt: "Select artistic category", autofocus: true, class: 'form-control' %> 
+  <br>
+  <br>
+   </div>
+   </div>
+   
+
+     <div class="field">
+  <div class="col-lg-10">
+ 
+     
+     <%= f.select :privacy_type, Group::PRIVACY_TYPE, prompt:"Select Privacy Type", autofocus: true, class: 'form-control' %> 
+     <br>
+     <br>
+    </div>
+    </div>
+
+      
+     <div class="field">
+    <div class="col-lg-10">
+    
+       <%= f.file_field :picture, autofocus: true, class: 'btn' %>
+       <br>
+       <br>
+    </div>
+    </div>
+   
+<div class="col-lg-10">
+  
+
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>
+</div>

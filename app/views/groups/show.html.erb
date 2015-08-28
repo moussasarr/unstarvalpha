@@ -1,0 +1,471 @@
+
+<% provide(:title, @group.group_name) %>
+
+
+
+       
+       
+
+<div class="row ">
+  <aside class="col-md-4 ">
+    <section class="group_info">
+      
+       <div class="container1">
+         <% if current_user.in_group?(@group)%>
+      <%= link_to "Leave this group", leave_group_group_path %>
+      <%else%>
+      <%= link_to "Join this group", join_group_group_path %>
+     <%end%>
+        | <%= link_to "Go to ChatRoom", chatroom_path %>
+        <% if @group.picture? %>
+         <%= image_tag @group.picture.url, :size => "314x314" %>
+         <%else%>
+         <%= gravatar_for_group @group %>
+         <%end%>
+         <br>
+        
+        <h3><%=  @group.group_name %></h3>
+       
+        <strong>Country: </strong><%= @group.country || None %>
+        <br/>
+        <strong>State: </strong> <%=  @group.state || None %>
+        <br/>
+        <strong>Type: </strong> <%= @group.type %><br/><br/>
+        
+       <!--</div>-->
+             
+     <!--<div class="row feed container1">-->
+ <br><br>
+   <ul class="nav nav-tabs">
+  <li class="active"><a href="#home" data-toggle="tab"><strong>Members</a></strong></li>
+  <li><a href="#profile" data-toggle="tab">Members in your groups</a></li>
+   
+  
+    </ul>
+  </li>
+</ul>
+<br>
+<br>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="home">
+    
+    <br><% User.in_group(@group).all.each do |user| %>
+              
+             
+             <% $img = image_tag user.picture.url, :size => "60x60" %>
+    
+             <%= link_to $img, user  %>
+     
+    
+            <% end %><br><br>
+
+
+
+
+
+             
+
+  
+   
+  </div>
+  <div class="tab-pane fade" id="profile">
+     
+
+  <br>
+               <% User.shares_any_group(current_user).all.each do |user| %>
+                 <% $img = image_tag user.picture.url, :size => "60x60" %> 
+              <%=link_to $img, user if user != current_user %>
+             <%end%>
+             <br/>
+             <br>
+
+  
+ 
+  </div>
+
+
+
+
+
+  <div class="tab-pane fade" id="dropdown1">
+    
+
+
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+             
+       
+        <div class="container1">
+        <strong>Group Description: </strong><br/>
+        <%= @group.description %> 
+        </div>
+
+         <br/>
+         </section>
+
+         <section>
+          <br/>
+
+<div class = "container1">
+<h3><a id="newposting">Post in group ?
+                                       <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></h3>
+
+
+
+<span class="post_form">
+
+
+<%= form_for  [@group, @group.grouposts.build] do |f| %>
+ 
+  <p>
+    <%= f.label :content, "Your Posts" %><br/>
+    <%= f.text_area :content %>
+
+  </p>
+  <p>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  </p>
+<% end %>
+ 
+   </div>
+ </span>
+ </section>
+ </aside>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>
+
+
+
+        
+
+
+
+      
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+<div class= "col-md-1"></div>
+    
+
+  <div class="col-md-8">
+  
+  
+
+  <section>
+  
+    
+
+
+
+
+   <% @group.grouposts.each do |post| %>
+     <% if post.user%>
+    <div class="row container1">
+  
+    <div class= "col-md-2">
+       
+   <small><em><% if post.user.picture? %>
+      <% $img=  image_tag(post.user.picture.url, :size => "60x60") %>
+
+    <%= link_to $img, post.user  %>
+        <% else %>
+        <%= gravatar_for post.user %>
+        <%end%>
+
+   </div>
+
+        
+
+  <div class="col-md-9">
+  <h4><strong><%=link_to post.user.username||post.user.firtname, post.user %></strong> <span class="timestamp">
+         <strong><%=time_ago_in_words(post.created_at) if !post.created_at.nil?%> ago</strong></em></small><br>
+        <strong><%= link_to post.title, post if post.title %></strong></h4></span>
+     
+         </strong>
+        <section>
+       <%= image_tag post.picture.url if post.picture %>
+  </section>
+   <br>
+   <section>
+    <%= post.content %>
+    </section>
+  </span>
+  <br>
+  <br>
+
+
+
+  
+
+
+
+
+
+
+
+  <h5>Comments (<%= post.groupcomments.count %>) 
+  <%= link_to  id: "commenting" do %>  
+<i class="glyphicon glyphicon-align-left glyphicon-comment" aria-hidden="true"></i> 
+  <% end %><br><br>
+
+   
+
+
+   <%= form_for [ @group, post, post.groupcomments.build] do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+    <%= f.text_area :body, placeholder: "Comment here..." %>
+    </div>
+    <%= f.submit "Comment", class: "btn btn-primary" %>
+      <% end %>
+      <br><br>
+
+
+
+
+  <% post.groupcomments.each do |comment| %>
+      <% if comment != post.groupcomments.at(post.groupcomments.count) %>
+      </h5>
+    <span class="comment"><small><%= comment.body %></small></span>
+     <br/>
+
+<h4><small><% if comment.user.picture? %><%= link_to (image_tag comment.user.picture.url, :size => "30x30"), comment.user  %>
+        <% else %>
+        <%= gravatar_for comment.user %>
+        <%end%>
+
+
+         <strong><%=time_ago_in_words(comment.created_at) if !comment.created_at.nil?%> ago</strong></small>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                       <a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
+                                        <a href="#"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+                                        
+    </span></em></strong></small></h4>
+<br>
+<br>
+
+
+   
+
+   
+  <%end%>
+
+  <%end%>
+
+
+
+  <br>
+  <br>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <%end%>
+
+  </div>
+  </div>
+  <%end%>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   </section>
+   
+  </span>
+
+
+
+
+
+
+
+
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+  </section>
+    
+    
+   
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  </div>
+  <br>
+  <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<br>
+<br>
+<br>
+

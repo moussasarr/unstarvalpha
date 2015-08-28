@@ -1,0 +1,79 @@
+<% provide(:title, "Edit user") %>
+<h1 class= "center">Update your profile</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user, html: { multipart: true }) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+
+       
+
+
+
+      <%= f.label :username %>
+      <%= f.text_field :username, class: 'form-control' %>
+       <br/>
+
+      <%= f.label :firtname, "First Name"%>
+      <%= f.text_field :firtname, class: 'form-control' %>
+      <br/>
+
+      <%= f.label :lastName, "Last Name" %>
+      <%= f.text_field :lastName, class: 'form-control' %>
+      <br/>
+
+        <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+      <br/>
+
+
+       <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+      <br/>
+
+      <%= f.label :password_confirmation, "Password Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <br/>
+
+         
+      <%= f.label :country, "Country" %>
+       <%= f.select :country, CountryStateSelect::Constant::COUNTRIES, {}, id: 'country_id', class: 'form-control' %>
+      </br>
+
+
+      <%= f.label :state, "Your State" %>
+       <%= f.text_field :state ,:id=> 'state_name', class: 'form-control' %>
+      </br>
+      <br>
+      
+        <%= f.label :artist, "Are you an artist ?" %>
+      <%= f.select :artist, User::ARTIST, class: 'form-control' %>
+      <br/>
+       
+
+       <%= f.label :industry %>
+      <%= f.text_field :industry, class: 'form-control' %>
+      <br/>
+
+     <div class="picture">
+        <strong> Choose a profile picture </strong>
+       <%= f.file_field :picture, class: 'btn' %>
+       <br>
+       <br>
+       </div>
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
+<br>
+<br>
+    
+    </div>
+    <br>
+    <br>
+  </div>
+  <br>
+  <br>
+</div>
+<br>
+<br>

@@ -1,0 +1,123 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<div class="row container1">
+    
+      <div class= "col-md-1">
+   <span class= "comment"> <small><em><% if @post.user.picture? %><%= link_to (image_tag @post.user.picture.url, :size => "70x70"), @post.user  %>
+        <% else %>
+        <%= gravatar_for @post.user %>
+        <%end%>
+      </div>
+      <div class= "col-md-9">
+    <h4><strong><%=link_to @post.user.username||@post.user.firtname, @post.user %></strong> <span class="timestamp">
+    <strong><%=time_ago_in_words(@post.created_at) if !@post.created_at.nil?%> ago</strong></em></small>
+   
+  </span>
+ <br>
+   <strong><%= link_to @post.title, @post %></strong></h4></span>
+
+  
+    
+  <!--
+  <a href="#" id="comenting"><span class="glyphicon glyphicon-align-left glyphicon-comment" aria-hidden="true"></span>
+  </a>
+
+  <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+   <a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></h4> -->
+   </h4>
+   </strong>
+   <section>
+    <%= image_tag @post.picture.url if @post.picture? %>
+  </section>
+   <br>
+   <section>
+    <%= @post.body %>
+   </section>
+   
+  </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <br><br>
+
+    
+
+  
+
+
+  
+
+
+ 
+  
+    <%= render partial: 'comments/form' %>
+    <%= link_to 'Edit', edit_post_path(@post) %> |
+    <%= link_to 'Back', posts_path %>
+    <br><br>
+
+  <h5>Comments (<%= @post.comments.count %>) 
+  <%= link_to  id: "commenting" do %>  
+<i class="glyphicon glyphicon-align-left glyphicon-comment" aria-hidden="true"></i> 
+  <% end %></h5><br>
+
+   <% @comments.each do |comment| %>
+     
+
+    <span class="comment"><small><%= comment.body %></small></span>
+     <br/>
+
+     <h4><small><% if comment.user.picture? %><%= link_to (image_tag comment.user.picture.url, :size => "30x30"), comment.user  %>
+        <% else %>
+        <%= gravatar_for comment.user %>
+        <%end%>
+     
+    <strong><%=time_ago_in_words(comment.created_at) if !comment.created_at.nil?%> ago</strong></small>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                       <a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
+                                        <a href="#"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+                                        
+    </span></em></strong></small></h4>
+    </li>
+    <br>
+    <br>
+    <%end%>
+   
+  
+    
+ 
+
+     <br>
+     <br>
+     <br>
+     
+
+</div>
+     <div class="col-md-2">
+     </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+

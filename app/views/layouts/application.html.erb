@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Unstarv</title>
+    <%= stylesheet_link_tag 'application', media: 'all',
+                                           'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+     <%= javascript_include_tag :defaults %>
+     <%= csrf_meta_tags %>
+    <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+
+
+    <%= render 'layouts/header' %>
+    
+    
+    
+    <div class="container views">
+    <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %> </div>
+          <%end%>
+        <div class="alert alert-error"> 
+        <% if current_user %>
+       <% if !current_user.updated? %>
+         
+          <button type="submit" class="btn btn-primary btn-danger"> <%= link_to "Please Update your Info now ", edit_user_path(current_user), class: "face-btn" =%></button>
+
+
+
+          
+        
+        <% end %>
+        <%end%>
+    </div>
+      <%= yield %>
+      <br>
+     
+    </div>
+    <!--<%= render 'layouts/footer' %>-->
+  </body>
+</html>
