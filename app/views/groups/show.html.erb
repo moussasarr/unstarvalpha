@@ -16,7 +16,7 @@
       <%else%>
       <%= link_to "Join this group", join_group_group_path %>
      <%end%>
-        | <%= link_to "Go to ChatRoom", chatroom_path %>
+        | <%= link_to "Go to Group Room", chatroom_path %>
         <% if @group.picture? %>
          <%= image_tag @group.picture.url, :size => "314x314" %>
          <%else%>
@@ -307,8 +307,8 @@
 
 
 
-  <br>
-  <br>
+
+ 
   
 
 
@@ -331,6 +331,8 @@
 
   </div>
   </div>
+  <br>
+
   <%end%>
 
   
