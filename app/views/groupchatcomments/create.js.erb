@@ -1,0 +1,7 @@
+Grouppoller.clear();
+Grouppoller.poll(0);
+<% if @groupchatcomment.new_record? %>
+alert('Your comment cannot be saved.');
+<% else %>
+$('#groupchatcomment_body').val('');
+<% end %>

@@ -4,6 +4,7 @@ class GroupcommentsController < ApplicationController
 #
  def index
     @groupcomments =Groupcomment.all.paginate(page: params[:page])
+   
   end
 
  def show

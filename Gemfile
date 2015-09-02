@@ -4,8 +4,7 @@ source 'http://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 gem 'bootstrap-sass',       '3.2.0.0'
-gem 'will_paginate',           '3.0.7'
-gem 'bootstrap-will_paginate', '0.0.10'
+
 
 gem 'carrierwave',             '0.10.0'
 gem 'mini_magick',             '3.8.0'
@@ -27,6 +26,10 @@ gem 'mailboxer'
 gem 'gravatar_image_tag'
 gem 'chosen-rails'
 gem 'jquery-turbolinks'
+gem 'faker'
+
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 
 gem 'activerecord-reputation-system', require: 'reputation_system'

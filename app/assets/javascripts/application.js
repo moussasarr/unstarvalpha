@@ -21,4 +21,5 @@
 //= require jquery.image-select
 //= require messages
 //= require polling
+//= require grouppolling
 //= require_tree .

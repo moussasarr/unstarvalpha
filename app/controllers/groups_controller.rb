@@ -32,11 +32,11 @@ class GroupsController < ApplicationController
 end
 
   def show
-    
-   
+      
     @group = Group.find(params[:id])
     @groupost = @group.grouposts.build
     @Post = @group.grouposts
+    session[:group_id] = @group.id
   end
 
   def edit

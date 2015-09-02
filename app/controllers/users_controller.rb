@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all.where(active: true)
+
   
       @conversations = Conversation.involving(current_user).order("created_at DESC")
 

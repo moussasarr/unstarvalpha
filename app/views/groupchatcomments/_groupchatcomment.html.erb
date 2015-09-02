@@ -1,0 +1,14 @@
+
+<% if groupchatcomment.user && groupchatcomment.group %>
+
+<li class="media groupchatcomment" data-id="<%= groupchatcomment.id %>">
+  <%= link_to image_tag(groupchatcomment.user.picture.url, alt: groupchatcomment.user.name, :size => "50x50", class: "media-object"),
+              groupchatcomment.user.picture.url, target: '_blank', class: 'pull-left' %>
+  <div class="media-body">
+    <h4 class="media-heading"><%= link_to groupchatcomment.user.name, groupchatcomment.user, target: '_blank' %> says
+      <small class="text-muted">[at <%= groupchatcomment.created_at.strftime('%-d %B %Y, %H:%M:%S') %>]</small></h4>
+    <p><%= groupchatcomment.body %></p>
+  </div>
+</li>
+
+<%end%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827035054) do
+ActiveRecord::Schema.define(version: 20150829025011) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -104,6 +104,17 @@ ActiveRecord::Schema.define(version: 20150827035054) do
   add_index "group_posts", ["group_id"], name: "index_group_posts_on_group_id"
   add_index "group_posts", ["user_id", "created_at"], name: "index_group_posts_on_user_id_and_created_at"
   add_index "group_posts", ["user_id"], name: "index_group_posts_on_user_id"
+
+  create_table "groupchatcomments", force: true do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groupchatcomments", ["group_id"], name: "index_groupchatcomments_on_group_id"
+  add_index "groupchatcomments", ["user_id"], name: "index_groupchatcomments_on_user_id"
 
   create_table "groupcomments", force: true do |t|
     t.integer  "groupost_id"

@@ -10,6 +10,7 @@ class Group < ActiveRecord::Base
 	
 	has_many :grouposts, dependent: :destroy
 	has_many :groupcomments, :through => :grouposts,  dependent: :destroy
+  has_many :groupchatcomments, dependent: :delete_all
     
  mount_uploader :picture, PictureUploader
 

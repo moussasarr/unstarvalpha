@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'groupchatcomments/new'
+
+  get 'groupchatcomments/create'
+
   get 'activities/index'
 
   root 'home#home' 
@@ -23,12 +27,14 @@ Rails.application.routes.draw do
   get 'news'   =>'home#news'
   get 'chatroom'   =>'groups#chatroom'
   resources :chatcomments, only: [:new, :create, :index]
+  resources :groupchatcomments, only: [:new, :create, :index]
   
    match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
    devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => 'registrations' }
 
    
    resources :friendships
+   resources :groupchatcomments, only: [:new, :create, :index]
  
  
   # devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
@@ -60,6 +66,8 @@ get 'users/show'
     member do
       get :join_group ,:leave_group    
     end
+    resources :groupchatcomments, only: [:new, :create, :index]
+  
     resources :grouposts,          only: [:create, :destroy, :show] do
         resources :groupcomments
     end
